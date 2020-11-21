@@ -4,5 +4,5 @@
 
 #ifndef EXERCISE1_MAIN_H
 #define EXERCISE1_MAIN_H
-void main();
+int main();
 #endif //EXERCISE1_MAIN_H

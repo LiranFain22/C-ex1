@@ -6,6 +6,7 @@ CMakeFiles/Exercise1.dir/NumberGame.c.o: ../NumberGame.h
 
 CMakeFiles/Exercise1.dir/PictureManipulation.c.o: ../PictureManipulation.c
 CMakeFiles/Exercise1.dir/PictureManipulation.c.o: ../PictureManipulation.h
+CMakeFiles/Exercise1.dir/PictureManipulation.c.o: ../main.h
 
 CMakeFiles/Exercise1.dir/main.c.o: ../NumberGame.h
 CMakeFiles/Exercise1.dir/main.c.o: ../PictureManipulation.h

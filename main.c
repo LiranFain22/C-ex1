@@ -3,7 +3,7 @@
 #include "NumberGame.h"
 #define MATRIX_SIZE 3
 
-void main() {
+int main() {
     printf("Please choose one of the following options \n");
 
     printf("P/p - Picture Manipulation \n");
@@ -12,7 +12,7 @@ void main() {
 
     char input;
 
-    scanf("%c", &input);
+    scanf(" %c", &input);
 
     switch (input) {
         case 'P':
@@ -22,10 +22,10 @@ void main() {
             startManipulationGame();
             break;
         case 'N':
-            //startNumberGame();
+            startNumberGame();
             break;
         case 'n':
-            //startNumberGame();
+            startNumberGame();
             break;
         case 'E':
             printf("Bye Bye");
@@ -34,6 +34,7 @@ void main() {
             printf("Bye Bye");
             break;
         default:
+            fprintf(stderr, "Wrong input, program ending..");
             break;
     }
 }

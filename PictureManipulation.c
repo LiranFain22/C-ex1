@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "main.h"
 #include "PictureManipulation.h"
 #define SIZE 3
 
@@ -137,7 +138,7 @@ void makeTurn(int *matrix){
 
 
     int userInput;
-    scanf("%d", &userInput);
+    scanf(" %d", &userInput);
 
     if(userInput == 1)
         clockwise(matrix);
