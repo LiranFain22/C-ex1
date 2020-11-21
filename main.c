@@ -14,16 +14,27 @@ void main() {
 
     scanf("%c", &input);
 
-
-    if( input == 'P' || input == 'p' ){
-        //here we need to move to 'Picture Manipulation'
-        startManipulationGame();
-    }
-    if( input == 'N' || input ==  'n'){
-        //here we need to move to 'Number Game'
-    }
-    if( input == 'E' || input == 'e' ){
-        printf("Bye bye");
+    switch (input) {
+        case 'P':
+            startManipulationGame();
+            break;
+        case 'p':
+            startManipulationGame();
+            break;
+        case 'N':
+            //startNumberGame();
+            break;
+        case 'n':
+            //startNumberGame();
+            break;
+        case 'E':
+            printf("Bye Bye");
+            break;
+        case  'e':
+            printf("Bye Bye");
+            break;
+        default:
+            break;
     }
 }
 
