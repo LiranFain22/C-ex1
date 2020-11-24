@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "PictureManipulation.h"
 #include "NumberGame.h"
-#define MATRIX_SIZE 3
 
 int main() {
     printf("Please choose one of the following options \n");

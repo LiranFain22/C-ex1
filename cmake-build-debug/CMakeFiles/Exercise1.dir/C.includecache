@@ -6,7 +6,31 @@
 
 #IncludeRegexTransform: 
 
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/NumberGame.c
+stdlib.h
+-
+time.h
+-
+stdio.h
+-
+NumberGame.h
 /cygdrive/c/Users/Liran/CLionProjects/Exercise1/NumberGame.h
+main.h
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/main.h
+
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/NumberGame.h
+
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/PictureManipulation.c
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+main.h
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/main.h
+PictureManipulation.h
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/PictureManipulation.h
 
 /cygdrive/c/Users/Liran/CLionProjects/Exercise1/PictureManipulation.h
 
@@ -17,4 +41,6 @@ PictureManipulation.h
 /cygdrive/c/Users/Liran/CLionProjects/Exercise1/PictureManipulation.h
 NumberGame.h
 /cygdrive/c/Users/Liran/CLionProjects/Exercise1/NumberGame.h
+
+/cygdrive/c/Users/Liran/CLionProjects/Exercise1/main.h
 

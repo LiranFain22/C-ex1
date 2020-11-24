@@ -7,4 +7,5 @@
 
 /* generate board NxN size and print to console */
 void startManipulationGame();
+void makeTurn(int *matrix);
 #endif //EXERCISE1_PICTUREMANIPULATION_H

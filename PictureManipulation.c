@@ -8,8 +8,6 @@
 #include "PictureManipulation.h"
 #define SIZE 3
 
-void makeTurn(int *matrix);
-
 void fillMatrix(int *matrix){
     int range = 100;
     int min = 1;
@@ -20,7 +18,7 @@ void fillMatrix(int *matrix){
 
     for(i=0; i<SIZE; i++){
         for(j=0; j<SIZE; j++){
-            *(matrix + (i*SIZE) +j)  = rand() % range + min;
+            *(matrix + (i * SIZE) + j)  = rand() % range + min;
         }
     }
 }
@@ -46,19 +44,15 @@ void clockwise(int *matrix){
             int temp = *(matrix + (i * SIZE) + j);
 
             // Move values from top to right
-//            *(*(matrix + i) + j) = *(*(matrix + SIZE - 1 - j) + i);
               *(matrix + (i * SIZE) + j) = *(matrix + (SIZE * (SIZE - 1 - j)) + i);
 
             // Move values from right to bottom
-//            *(*(matrix + SIZE - 1 - j) + i) = *(*(matrix + SIZE - 1 - i) + SIZE - 1 - j);
               *(matrix + (SIZE *(SIZE - 1 - j)) + i) = *(matrix + (SIZE *(SIZE - 1 - i)) + SIZE - 1 - j);
 
             // Move values from bottom to left
-//            *(*(matrix + SIZE - 1 - i) + SIZE - 1 - j) = *(*(matrix + j) + SIZE - 1 - i);
               *(matrix + (SIZE *(SIZE - 1 - i)) + SIZE - 1 - j) = *(matrix + (SIZE * j) + SIZE - 1 - i);
 
             // Return temp to left
-//            *(*(matrix + j) + SIZE - 1 - i) = temp;
               *(matrix + (SIZE * j) + SIZE - 1 - i) = temp;
         }
     }
@@ -72,23 +66,18 @@ void counterClockwise(int *matrix){
     for(i = 0; i < SIZE / 2; i++){
         for(j = i; j < SIZE - i - 1; j++){
             //swap elements
-//            int temp = *(*(matrix + i) + j);
               int temp = *(matrix + (SIZE * i) + j);
 
             // move values from right to top
-//            *(*(matrix + i) + j) =  *(*(matrix + j) + SIZE - 1 - i);
               *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * j) + SIZE - 1 - i);
 
             // Move values from bottom to right
-//            *(*(matrix + j) + SIZE - 1 - i) = *(*(matrix + SIZE - 1 - i) + SIZE - 1 - j);
               *(matrix + (SIZE * j) + SIZE - 1 - i) = *(matrix + (SIZE * (SIZE - 1 - i)) + SIZE - 1 - j);
 
             // Move values from left to bottom
-//            *(*(matrix + SIZE - 1 - i) + SIZE - 1 - j) = *(*(matrix + SIZE - 1 - j) + i);
               *(matrix + (SIZE * (SIZE - 1 - i)) + SIZE - 1 - j) = *(matrix + (SIZE * (SIZE - 1 - j)) + i);
 
             // Return temp to left
-//            *(*(matrix + SIZE - 1 - j) + i) = temp;
               *(matrix + (SIZE *(SIZE - 1 - j)) + i) = temp;
         }
     }
@@ -115,11 +104,8 @@ void vertical(int *matrix){
     int i,j;
     for(i = 0; i < SIZE; i++){
         for(j = 0; j < SIZE / 2; j++){
-//            int temp = *(*(matrix + i) + j);
               int temp = *(matrix + (SIZE * i) + j);
-//            *(*(matrix + i) + j) = *(*(matrix + i) + SIZE - j - 1);
               *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + SIZE - j - 1);
-//            *(*(matrix + i) + SIZE - j - 1) = temp;
               *(matrix + (SIZE * i) + SIZE - j - 1) = temp;
         }
     }
@@ -150,10 +136,11 @@ void makeTurn(int *matrix){
         vertical(matrix);
     if(userInput == -1)
         main();
+
+    fprintf(stderr, "Wrong input, program ending..");
 }
 
 void startManipulationGame(){
-
     int matrix[SIZE][SIZE];
 
     fillMatrix((int *) matrix);
