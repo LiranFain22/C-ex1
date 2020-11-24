@@ -21,6 +21,7 @@ void swapLeft(int *matrix){
                     int temp = *(matrix + (SIZE * i) + j);
                     *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + j - 1);
                     *(matrix + (SIZE * i) + j - 1) = temp;
+                    return;
                 }
             }
         }
@@ -37,6 +38,7 @@ void swapUp(int *matrix){
                     int temp = *(matrix + (SIZE * i) + j);
                     *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * (i - 1)) + j);
                     *(matrix + (SIZE * (i - 1)) + j) = temp;
+                    return;
                 }
             }
         }
@@ -53,6 +55,7 @@ void swapRight(int *matrix){
                     int temp = *(matrix + (SIZE * i) + j);
                     *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + j + 1);
                     *(matrix + (SIZE * i) + j + 1) = temp;
+                    return;
                 }
             }
         }
@@ -69,6 +72,7 @@ void swapDown(int *matrix){
                     int temp = *(matrix + (SIZE * i) + j);
                     *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * (i + 1)) + j);
                     *(matrix + (SIZE * (i + 1)) + j) = temp;
+                    return;
                 }
             }
         }
@@ -109,9 +113,22 @@ void initBoard(int *matrix){
         direction = rand() % 4 + 1; // generate NEW direction
         counter++;
     }
+
+    /* placing '0' in right bottom corner */
+    for(i = 0; i < SIZE; i++){
+        for(j = 0; j < SIZE; j++){
+            if(*(matrix + (i * SIZE) + j) == 0){
+                // swap
+                int temp = *(matrix + (i * SIZE) + j);
+                *(matrix + (i * SIZE) + j) = *(matrix + (SIZE * (SIZE - 1)) + (SIZE - 1));
+                *(matrix + (SIZE * (SIZE - 1)) + (SIZE - 1) ) = temp;
+                return;
+            }
+        }
+    }
 }
 
-void printBoard(const int *matrix){
+void printBoard(int *matrix){
     int i,j;
     for(i = 0; i < SIZE; i++){
         for(j = 0; j < SIZE; j++){
@@ -128,18 +145,12 @@ void printBoard(const int *matrix){
  * if return 1 - board is in-order
  * otherwise, 0  - board is NOT in-order */
 int checkBoard(const int *matrix){
-    int temp = *(matrix); // temp = first value in matrix
-    int i,j;
+    int i;
     for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
-            if(i == (SIZE - 1) && j == (SIZE - 1) && *(matrix + (i * SIZE) + j) == 0) // check if this is the end of the matrix
-                return 1;
-            if(temp <= *(matrix + (i * SIZE) + j))
-                temp = *(matrix + (i * SIZE) + j);
-            else
-                return 0;
-        }
+        if(*(matrix + i) != i)
+            return  0;
     }
+    return  1;
 }
 
 /* this method check if the choose number is valid move and return:
@@ -150,20 +161,20 @@ int isValidMove(int *matrix, int chooseNumber){
     for(i = 0; i < SIZE; i++){
         for(j = 0; j < SIZE; j++){
             if(*(matrix + (i * SIZE) + j) == 0){
-                if(*(matrix + (i * SIZE) + (j - 1) ) == chooseNumber) {
+                if( j >0 && *(matrix + (i * SIZE) + (j - 1) ) == chooseNumber) {
                     swapLeft(matrix);
                     return 1;
                 }
-                if(*(matrix + (i * SIZE) + (j + 1) ) == chooseNumber) {
+                if(j<(SIZE-1) && *(matrix + (i * SIZE) + (j + 1) ) == chooseNumber) {
                     swapRight(matrix);
                     return 1;
                 }
-                if(*(matrix + ((i + 1) * SIZE) + j ) == chooseNumber) {
-                    swapUp(matrix);
+                if(i<(SIZE-1) && *(matrix + ((i + 1) * SIZE) + j ) == chooseNumber) {
+                    swapDown(matrix);
                     return 1;
                 }
-                if(*(matrix + ((i - 1) * SIZE) + (j - 1) ) == chooseNumber) {
-                    swapDown(matrix);
+                if(i > 0 && *(matrix + ((i - 1) * SIZE) + (j) ) == chooseNumber) {
+                    swapUp(matrix);
                     return 1;
                 }
                 return 0;
@@ -175,17 +186,19 @@ int isValidMove(int *matrix, int chooseNumber){
 void userMove(int *matrix){
     printf("Your step: ");
     int chooseNumber;
-    scanf(" %d\n", &chooseNumber);
-    if( isValidMove(matrix, chooseNumber) == 0){
+    scanf(" %d", &chooseNumber);
+    int validMove = isValidMove(matrix, chooseNumber);
+    if( validMove == 0){
         printf("Invalid step!\n");
         userMove(matrix);
     }
-    if(isValidMove(matrix, chooseNumber) == 1){
+    if(validMove == 1){
         if(checkBoard(matrix) == 1) {
-            printf("You win! The game is over!");
+            printf("You win! The game is over!\n\n");
             main();
         }
         if(checkBoard(matrix) == 0) {
+            printBoard(matrix);
             userMove(matrix);
         }
     }
