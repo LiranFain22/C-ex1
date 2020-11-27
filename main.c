@@ -2,7 +2,8 @@
 #include "PictureManipulation.h"
 #include "NumberGame.h"
 
-int main() {
+
+char getUserMove() {
     printf("Please choose one of the following options \n");
 
     printf("P/p - Picture Manipulation \n");
@@ -12,8 +13,11 @@ int main() {
     char input;
 
     scanf(" %c", &input);
+    return input;
+}
 
-    switch (input) {
+int main() {
+    switch (getUserMove()) {
         case 'P':
             startManipulationGame();
             break;
@@ -33,7 +37,7 @@ int main() {
             printf("Bye Bye");
             break;
         default:
-            fprintf(stderr, "Wrong input, program ending..");
+            fprintf(stderr, "Wrong input, program ends..");
             break;
     }
 }

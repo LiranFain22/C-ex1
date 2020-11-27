@@ -8,6 +8,10 @@
 #include "PictureManipulation.h"
 #define SIZE 3
 
+/**
+ * fill the picture with random numbers in the range 0-100
+ * @param matrix the picture to be filled
+ */
 void fillMatrix(int *matrix){
     int range = 100;
     int min = 1;
@@ -23,6 +27,10 @@ void fillMatrix(int *matrix){
     }
 }
 
+/**
+ * print the picture on the screen
+ * @param matrix the picture to be printed
+ */
 void printMatrix(const int *matrix){
     int i,j;
     for(i=0; i<SIZE; i++){
@@ -36,6 +44,10 @@ void printMatrix(const int *matrix){
     printf("\n");
 }
 
+/**
+ * make a clockwise rotation to the picture
+ * @param matrix the picture to be rotated
+ */
 void clockwise(int *matrix){
     int i,j;
     for(i = 0; i < SIZE; i++){
@@ -61,6 +73,10 @@ void clockwise(int *matrix){
     makeTurn(matrix);
 }
 
+/**
+ * make a counter Clockwise rotation to the picture
+ * @param matrix the picture to be rotated
+ */
 void counterClockwise(int *matrix){
     int i,j;
     for(i = 0; i < SIZE / 2; i++){
@@ -86,6 +102,10 @@ void counterClockwise(int *matrix){
     makeTurn(matrix);
 }
 
+/**
+ * make a horizontal rotation to the picture
+ * @param matrix the picture to be rotated
+ */
 void horizontal(int *matrix){
     int i,j;
     for(i = 0; i < SIZE; i++){
@@ -100,6 +120,10 @@ void horizontal(int *matrix){
     makeTurn(matrix);
 }
 
+/**
+ * make a vertical rotation to the picture
+ * @param matrix the picture to be rotated
+ */
 void vertical(int *matrix){
     int i,j;
     for(i = 0; i < SIZE; i++){
@@ -114,6 +138,10 @@ void vertical(int *matrix){
     makeTurn(matrix);
 }
 
+/**
+ * make a rotation by user choice
+ * @param matrix the picture to be rotated
+ */
 void makeTurn(int *matrix){
     printf("please choose one of the following option\n");
     printf("1 - 90 degree clockwise\n");
@@ -140,6 +168,9 @@ void makeTurn(int *matrix){
     fprintf(stderr, "Wrong input, program ending..");
 }
 
+/**
+ * prepare the random picture and start the game
+ */
 void startManipulationGame(){
     int matrix[SIZE][SIZE];
 

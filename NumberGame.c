@@ -11,74 +11,75 @@
 #define SIZE 4
 #define SHUFFEL_COUNT  10
 
-void swapLeft(int *matrix){
-    int i,j;
-    for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
-            if(*(matrix + (SIZE * i) + j) == 0){
-                if((j - 1) >= 0){
-                    // Swap items
-                    int temp = *(matrix + (SIZE * i) + j);
-                    *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + j - 1);
-                    *(matrix + (SIZE * i) + j - 1) = temp;
-                    return;
-                }
-            }
-        }
+/**
+ * swap 0 with the left cell
+ * @param matrix contains the numbers to order
+ * @param i the row of 0 location
+ * @param j the column of 0 location
+ */
+void swapLeft(int *matrix, const int i, const int j){
+    if((j - 1) >= 0){
+        // Swap items
+        int temp = *(matrix + (SIZE * i) + j);
+        *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + j - 1);
+        *(matrix + (SIZE * i) + j - 1) = temp;
+        return;
     }
 }
 
-void swapUp(int *matrix){
-    int i,j;
-    for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
-            if(*(matrix + (SIZE * i) + j) == 0){
-                if((i - 1) >= 0){
-                    // Swap items
-                    int temp = *(matrix + (SIZE * i) + j);
-                    *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * (i - 1)) + j);
-                    *(matrix + (SIZE * (i - 1)) + j) = temp;
-                    return;
-                }
-            }
-        }
+/**
+ * swap 0 with the top cell
+ * @param matrix contains the numbers to order
+ * @param i the row of 0 location
+ * @param j the column of 0 location
+ */
+void swapUp(int *matrix, const int i, const int j){
+    if((i - 1) >= 0){
+        // Swap items
+        int temp = *(matrix + (SIZE * i) + j);
+        *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * (i - 1)) + j);
+        *(matrix + (SIZE * (i - 1)) + j) = temp;
+        return;
     }
 }
 
-void swapRight(int *matrix){
-    int i,j;
-    for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
-            if(*(matrix + (SIZE * i) + j) == 0){
-                if((j + 1) <= (SIZE - 1)){
-                    // Swap items
-                    int temp = *(matrix + (SIZE * i) + j);
-                    *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + j + 1);
-                    *(matrix + (SIZE * i) + j + 1) = temp;
-                    return;
-                }
-            }
-        }
+/**
+ * swap 0 with the right cell
+ * @param matrix contains the numbers to order
+ * @param i the row of 0 location
+ * @param j the column of 0 location
+ */
+void swapRight(int *matrix, const int i, const int j){
+    if((j + 1) <= (SIZE - 1)){
+        // Swap items
+        int temp = *(matrix + (SIZE * i) + j);
+        *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * i) + j + 1);
+        *(matrix + (SIZE * i) + j + 1) = temp;
+        return;
     }
 }
 
-void swapDown(int *matrix){
-    int i,j;
-    for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
-            if(*(matrix + (SIZE * i) + j) == 0){
-                if((i + 1) <= (SIZE - 1)){
-                    // Swap items
-                    int temp = *(matrix + (SIZE * i) + j);
-                    *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * (i + 1)) + j);
-                    *(matrix + (SIZE * (i + 1)) + j) = temp;
-                    return;
-                }
-            }
-        }
+/**
+ * swap 0 with the bottom cell
+ * @param matrix contains the numbers to order
+ * @param i the row of 0 location
+ * @param j the column of 0 location
+ */
+void swapDown(int *matrix, const int i, const int j){
+    if((i + 1) <= (SIZE - 1)){
+        // Swap items
+        int temp = *(matrix + (SIZE * i) + j);
+        *(matrix + (SIZE * i) + j) = *(matrix + (SIZE * (i + 1)) + j);
+        *(matrix + (SIZE * (i + 1)) + j) = temp;
+        return;
     }
 }
 
+
+/**
+ * init board with numbers for 0 to SIZE-1
+ * @param matrix the board to fill
+ */
 void initBoard(int *matrix){
     int i,j;
     int number = 0;
@@ -88,7 +89,9 @@ void initBoard(int *matrix){
             number++;
         }
     }
-
+    /* the initial location of 0 */
+    i = 0;
+    j = 0;
     /* Seed the current time */
     srand(time(NULL));
 
@@ -101,33 +104,43 @@ void initBoard(int *matrix){
     int counter = 0; // count the numbers of board's shuffle
 
     while(counter < SHUFFEL_COUNT){
-        if(direction == 1)
-            swapLeft(matrix);
-        if(direction == 2)
-            swapUp(matrix);
-        if(direction == 3)
-            swapRight(matrix);
-        if(direction == 4)
-            swapDown(matrix);
+        if(direction == 1){
+            swapLeft(matrix,i,j);
+            if(j>0)
+                j--;
+        }
 
+        if(direction == 2){
+            swapUp(matrix,i,j);
+            if(i>0)
+                i--;
+        }
+        if(direction == 3){
+            swapRight(matrix,i,j);
+            if(j<SIZE-1)
+                j++;
+        }
+        if(direction == 4) {
+            swapDown(matrix,i,j);
+            if(i<SIZE-1)
+                i++;
+        }
         direction = rand() % 4 + 1; // generate NEW direction
         counter++;
     }
 
     /* placing '0' in right bottom corner */
-    for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
-            if(*(matrix + (i * SIZE) + j) == 0){
-                // swap
-                int temp = *(matrix + (i * SIZE) + j);
-                *(matrix + (i * SIZE) + j) = *(matrix + (SIZE * (SIZE - 1)) + (SIZE - 1));
-                *(matrix + (SIZE * (SIZE - 1)) + (SIZE - 1) ) = temp;
-                return;
-            }
-        }
-    }
+    // swap
+    int temp = *(matrix + (i * SIZE) + j);
+    *(matrix + (i * SIZE) + j) = *(matrix + (SIZE * (SIZE - 1)) + (SIZE - 1));
+    *(matrix + (SIZE * (SIZE - 1)) + (SIZE - 1) ) = temp;
+    return;
 }
 
+/**
+ * print board on screen
+ * @param matrix the board to print
+ */
 void printBoard(int *matrix){
     int i,j;
     for(i = 0; i < SIZE; i++){
@@ -141,7 +154,7 @@ void printBoard(int *matrix){
     printf("\n");
 }
 
-/* check if the board is in-order
+/** check if the board is in-order
  * if return 1 - board is in-order
  * otherwise, 0  - board is NOT in-order */
 int checkBoard(const int *matrix){
@@ -153,7 +166,7 @@ int checkBoard(const int *matrix){
     return  1;
 }
 
-/* this method check if the choose number is valid move and return:
+/** this method check if the choose number is valid move and return:
  * 1 - the move is valid
  * 0 - invalid */
 int isValidMove(int *matrix, int chooseNumber){
@@ -162,19 +175,19 @@ int isValidMove(int *matrix, int chooseNumber){
         for(j = 0; j < SIZE; j++){
             if(*(matrix + (i * SIZE) + j) == 0){
                 if( j >0 && *(matrix + (i * SIZE) + (j - 1) ) == chooseNumber) {
-                    swapLeft(matrix);
+                    swapLeft(matrix, i, j);
                     return 1;
                 }
                 if(j<(SIZE-1) && *(matrix + (i * SIZE) + (j + 1) ) == chooseNumber) {
-                    swapRight(matrix);
+                    swapRight(matrix,i,j);
                     return 1;
                 }
                 if(i<(SIZE-1) && *(matrix + ((i + 1) * SIZE) + j ) == chooseNumber) {
-                    swapDown(matrix);
+                    swapDown(matrix,i,j);
                     return 1;
                 }
                 if(i > 0 && *(matrix + ((i - 1) * SIZE) + (j) ) == chooseNumber) {
-                    swapUp(matrix);
+                    swapUp(matrix,i,j);
                     return 1;
                 }
                 return 0;
@@ -183,6 +196,10 @@ int isValidMove(int *matrix, int chooseNumber){
     }
 }
 
+/**
+ * make a move by user choice
+ * @param matrix the board of the game
+ */
 void userMove(int *matrix){
     printf("Your step: ");
     int chooseNumber;
@@ -204,6 +221,9 @@ void userMove(int *matrix){
     }
 }
 
+/**
+ * preparing the board and start the number game
+ */
 void startNumberGame(){
 
     int *matrix[SIZE][SIZE];
